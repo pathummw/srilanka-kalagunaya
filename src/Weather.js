@@ -11,8 +11,10 @@ export default function Weather() {
     const [cityList, setCityList] = useState(null);
 
     useEffect(() => {
-        setCityList(CITY.cities);
-        /* console.log(CITY.cities) */
+
+        setCityList(CITY.cities.map(i => ({
+            value: i, label: i
+        })));
 
     }, [])
 
@@ -25,13 +27,18 @@ export default function Weather() {
 
     }
 
-    let options;
+    const handleChange = (e) => {
+        setCity(e.value);
+        console.log(city)
+    };
+
+    /* let options;
     if (cityList) {
         options = CITY.cities.map(i => ({
             value: i, label: i
         }));
 
-    }
+    } */
 
     /* const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -53,13 +60,16 @@ export default function Weather() {
             <form action="" onSubmit={searchWeather}>
 
 
-                <Select options={options} />
+                <Select options={cityList}
+                    onChange={handleChange}
+                /* value={city} */
+                />
 
-                <input type="text"
+                {/* <input type="text"
                     placeholder={"Enter city"}
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                />
+                /> */}
                 <button>Enter</button>
             </form>
             {weather.main && (
